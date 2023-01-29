@@ -3,7 +3,6 @@ function add(a,b)      { return a + b }
 function subtract(a,b) { return a - b }
 function multiply(a,b) { return a * b }
 function divide(a,b)   { return a / b }
-function modulo(a,b)   { return a % b }
 
 // elements
 const elemDisplayTop    = document.querySelector('.display__top')
@@ -20,7 +19,7 @@ const query = {
   result   : ''
 };
 
-// input functions
+// functions
 function setNumber(number) {
   let value = query.operator ? query.num2 : query.num1;
 
@@ -57,7 +56,7 @@ function setOperator(opr) {
   }
 }
 
-// 
+// onclick events
 elemBtnNumbers.forEach(element => {
   const number = element.dataset.num;
   
@@ -72,18 +71,31 @@ elemBtnOperators.forEach(element => {
   element.onclick = () => {
 
     // disable if no number given
-    if (query.num1 == '') return;
+    if (query.num1 === '') return;
 
     // show result
-    if ( operation  == 'result' && 
-         query.num1 != ''       && 
-         query.num2 != ''
+    if ( operation  === 'result' && 
+         query.num1 !== ''       && 
+         query.num2 !== ''
     ) {
       query.result = window[query.operator](+query.num1, +query.num2);
       elemDisplayResult.textContent = query.result;
       return;
     }
 
+    // set result if input on num2 already exist (part of chaining)
+    if (query.num2 !== '') {
+      query.result = window[query.operator](+query.num1, +query.num2);
+    }
+
+    // result chaining
+    if (query.result !== '') {
+      query.num1 = query.result;
+      query.num2 = '';
+      elemDisplayResult.textContent = query.result;
+    }
+
+    // set operator
     let symbol = setOperator(element.dataset.opr);
     elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
   };
