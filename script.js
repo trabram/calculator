@@ -4,18 +4,20 @@ function subtract(a,b) { return a - b }
 function multiply(a,b) { return a * b }
 function divide(a,b)   { return a / b }
 function modulo(a,b)   { return a % b }
-function operate(operator, a, b) { return operator(a, b) }
 
 // elements
-const elemDisplayTop   = document.querySelector('.display__top')
-const elemBtnNumbers   = document.querySelectorAll('.btn__num');
-const elemBtnOperators = document.querySelectorAll('.btn__opr');
+const elemDisplayTop    = document.querySelector('.display__top')
+const elemDisplayResult = document.querySelector('.display__result')
+const elemBtnNumbers    = document.querySelectorAll('.btn__num');
+const elemBtnOperators  = document.querySelectorAll('.btn__opr');
 
 // variables
 const query = {
   num1     : '',
   num2     : '',
-  operator : ''
+  operator : '',
+  symbol   : '',
+  result   : ''
 };
 
 // input functions
@@ -37,18 +39,20 @@ function setNumber(number) {
   else                query.num1 = value;
 }
 function setOperator(opr) {
+  query.operator = opr;
+
   switch (opr) {
     case 'add':
-      query.operator = '+';
+      query.symbol = '+';
       break;
     case 'subtract':
-      query.operator = '-';
+      query.symbol = '-';
       break;
     case 'multiply':
-      query.operator = '*';
+      query.symbol = '*';
       break;
     case 'divide':
-      query.operator = '/';
+      query.symbol = '/';
       break;
   }
 }
@@ -59,14 +63,28 @@ elemBtnNumbers.forEach(element => {
   
   element.onclick = () => {
     setNumber(number);
-    elemDisplayTop.textContent = `${query.num1} ${query.operator} ${query.num2}`;
+    elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
   };
 });
 elemBtnOperators.forEach(element => {
   const operation = element.dataset.opr;
   
   element.onclick = () => {
-    setOperator(element.dataset.opr);
-    elemDisplayTop.textContent = `${query.num1} ${query.operator} ${query.num2}`;
+
+    // disable if no number given
+    if (query.num1 == '') return;
+
+    // show result
+    if ( operation  == 'result' && 
+         query.num1 != ''       && 
+         query.num2 != ''
+    ) {
+      query.result = window[query.operator](+query.num1, +query.num2);
+      elemDisplayResult.textContent = query.result;
+      return;
+    }
+
+    let symbol = setOperator(element.dataset.opr);
+    elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
   };
 });
