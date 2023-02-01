@@ -5,51 +5,67 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Concert+One&family=Martian+Mono&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
   
   <title>Calculator</title>
 </head>
 <body>
-  
-  <div class="display">
-    <span class="display__top"></span>
-    <br>
-    <span class="display__result"></span>
-    <br>
-  </div>
+  <div class="calculator">
 
-  <div class="numpad">
-    <div class="numpad__row">
-      <button class="numpad__btn" id="btnClearAll">AC</button>
-      <button class="numpad__btn" id="btnClear">C</button>
-      <button class="numpad__btn" id="btnNegative">+/-</button>
+    <div class="display">
+      <span class="display__top"></span>
+      <br>
+      <span class="display__result"></span>
+      <br>
     </div>
-    <div class="numpad__row">
-      <button class="numpad__btn btn__num" data-num="7">7</button>
-      <button class="numpad__btn btn__num" data-num="8">8</button>
-      <button class="numpad__btn btn__num" data-num="9">9</button>
-      <button class="numpad__btn btn__opr" data-opr="divide">/</button>
+    <div class="numpad">
+      <div class="numpad__row">
+        <button class="numpad__btn" id="btnClearAll">AC</button>
+        <button class="numpad__btn" id="btnClear">C</button>
+        <button class="numpad__btn" id="btnNegative">
+          <i class="fa-solid fa-plus-minus"></i>
+        </button>
+        <button class="numpad__btn btn__opr" data-opr="divide">
+          <i class="fa-solid fa-divide"></i>
+        </button>
+      </div>
+      <div class="numpad__row">
+        <button class="numpad__btn btn__num" data-num="7">7</button>
+        <button class="numpad__btn btn__num" data-num="8">8</button>
+        <button class="numpad__btn btn__num" data-num="9">9</button>
+        <button class="numpad__btn btn__opr" data-opr="multiply">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="numpad__row">
+        <button class="numpad__btn btn__num" data-num="4">4</button>
+        <button class="numpad__btn btn__num" data-num="5">5</button>
+        <button class="numpad__btn btn__num" data-num="6">6</button>
+        <button class="numpad__btn btn__opr" data-opr="subtract">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+      </div>
+      <div class="numpad__row">
+        <button class="numpad__btn btn__num" data-num="1">1</button>
+        <button class="numpad__btn btn__num" data-num="2">2</button>
+        <button class="numpad__btn btn__num" data-num="3">3</button>
+        <button class="numpad__btn btn__opr" data-opr="add">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+      <div class="numpad__row">
+        <button class="numpad__btn btn__num" data-num=".">.</button>
+        <button class="numpad__btn btn__num" data-num="0">0</button>
+        <button class="numpad__btn btn__opr" data-opr="result">
+          <i class="fa-solid fa-equals"></i>
+        </button>
+      </div>
     </div>
-    <div class="numpad__row">
-      <button class="numpad__btn btn__num" data-num="4">4</button>
-      <button class="numpad__btn btn__num" data-num="5">5</button>
-      <button class="numpad__btn btn__num" data-num="6">6</button>
-      <button class="numpad__btn btn__opr" data-opr="multiply">x</button>
-    </div>
-    <div class="numpad__row">
-      <button class="numpad__btn btn__num" data-num="1">1</button>
-      <button class="numpad__btn btn__num" data-num="2">2</button>
-      <button class="numpad__btn btn__num" data-num="3">3</button>
-      <button class="numpad__btn btn__opr" data-opr="subtract">-</button>
-    </div>
-    <div class="numpad__row">
-      <button class="numpad__btn btn__num" data-num=".">.</button>
-      <button class="numpad__btn btn__num" data-num="0">0</button>
-      <button class="numpad__btn btn__opr" data-opr="result">=</button>
-      <button class="numpad__btn btn__opr" data-opr="add">+</button>
-    </div>
-  </div>
 
+  </div>
 </body>
 </html>

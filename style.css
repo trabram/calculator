@@ -1,0 +1,98 @@
+body {
+  /* padding: 40px; */
+
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator {
+  width: fit-content;
+
+  background-color: #37393A;
+
+  padding: 40px;
+
+  border-radius: 10px;
+  
+  margin: auto;
+}
+
+.display {
+  width: 320px;
+  
+  font-family: 'Martian Mono', monospace;
+  text-align: end;
+  
+  background-color: blanchedalmond;
+
+  padding: 16px;
+
+  border-radius: 8px;
+
+  margin-inline: auto;
+  margin-bottom: 40px;
+}
+
+.display > span {
+  word-wrap: break-word;
+}
+
+.display__top {
+  font-size: 1.2rem;
+}
+
+.display__result {
+  font-size: 3rem;
+}
+
+.numpad {
+  width: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} 
+
+.numpad__row {
+  display: flex;
+  gap: 10px;
+}
+
+.numpad__btn {
+  width: 80px;
+  height: 80px;
+
+  font-family: 'Concert One', cursive;
+  font-size: 2.4rem;
+
+  border: 0;
+  border-radius: 12px;
+}
+
+.numpad__btn[id] {
+  background-color: #141515;
+  color: #E8EEF2;
+}
+
+.numpad__btn[data-opr="result"] {
+  flex-grow: 1;
+}
+
+.numpad__btn:active {
+  transform: translateY(2px);
+}
+
+.btn__num {
+  background-color: #E8EEF2;
+}
+
+.btn__opr {
+  background-color: #FFBA49;
+}
+
+#btnNegative {
+  font-size: 2rem;
+}

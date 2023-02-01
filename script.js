@@ -61,13 +61,13 @@ function setOperator(opr) {
       query.symbol = '+';
       break;
     case 'subtract':
-      query.symbol = '-';
+      query.symbol = '−';
       break;
     case 'multiply':
-      query.symbol = '*';
+      query.symbol = '×';
       break;
     case 'divide':
-      query.symbol = '/';
+      query.symbol = '÷';
       break;
   }
 }
