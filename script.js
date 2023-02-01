@@ -98,7 +98,7 @@ elemBtnOperators.forEach(element => {
       return;
     }
 
-    // set result if input on num2 already exist (part of chaining)
+    // set result if input on num2 already exist (chaining)
     if (query.num2 !== '') {
       query.result = window[query.operator](+query.num1, +query.num2);
     }
@@ -110,8 +110,8 @@ elemBtnOperators.forEach(element => {
       elemDisplayResult.textContent = query.result;
     }
 
-    // set operator
-    let symbol = setOperator(element.dataset.opr);
+    // set operator and display query
+    setOperator(element.dataset.opr);
     elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
   };
 });
