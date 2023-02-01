@@ -74,12 +74,28 @@ function setOperator(opr) {
 function updateDisplayTop() {
   elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
 }
+function reset() {
+  // empty query
+  for (const key in query) {
+    query[key] = '';
+  }
+  // empty display
+  elemDisplayTop.textContent = ''
+  elemDisplayResult.textContent = ''
+}
 
 // onclick events
 elemBtnNumbers.forEach(element => {
   const number = element.dataset.num;
   
   element.onclick = () => {
+    // reset when finish (result calculated)
+    if (query.num1     !== '' &&
+        query.num2     !== '' &&
+        query.operator !== '' &&
+        query.result   !== ''
+    ) reset();
+    
     setNumber(number);
     updateDisplayTop();
   };
@@ -92,7 +108,7 @@ elemBtnOperators.forEach(element => {
     // disable if no number given
     if (query.num1 === '') return;
 
-    // show result
+    // show result function
     if ( operation  === 'result' && 
          query.num1 !== ''       && 
          query.num2 !== ''
@@ -109,9 +125,10 @@ elemBtnOperators.forEach(element => {
 
     // result chaining
     if (query.result !== '') {
-      query.num1 = query.result;
-      query.num2 = '';
-      elemDisplayResult.textContent = query.result;
+      query.num1   = query.result;
+      query.num2   = '';
+      query.result = '';
+      elemDisplayResult.textContent = '';
     }
 
     // set operator and display query
@@ -120,19 +137,14 @@ elemBtnOperators.forEach(element => {
   };
 });
 elemBtnClearAll.onclick = () => {
-  // empty query
-  for (const key in query) {
-    query[key] = '';
-  }
-  // empty display
-  elemDisplayTop.textContent = ''
-  elemDisplayResult.textContent = ''
+  reset()
 };
 elemBtnClear.onclick = () => {
   if (query.operator) query.num2 = '';
   else                query.num1 = '';
 
   updateDisplayTop();
+  elemDisplayResult.textContent = '';
 };
 elemBtnNegative.onclick = () => {
   let number      = query.operator ? query.num2 : query.num1;
