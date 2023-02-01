@@ -21,22 +21,35 @@ const query = {
 };
 
 // functions
-function setNumber(number) {
-  let value = query.operator ? query.num2 : query.num1;
+function setNumber(input) {
+  let number      = query.operator ? query.num2 : query.num1;
+  let specialCase = false;
 
-  // init 0 logic
-  if (value == 0) {
-    if (number == 0) {
-      value = 0;
-    } else {
-      value = number;
+  // decimal logic
+  if (input === '.') {
+    if (number === '') {
+      number = '0.';
+      specialCase = true;
     } 
-  } else {
-    value += number;
+    if (number.includes('.')) {
+      specialCase = true;
+    }
   }
 
-  if (query.operator) query.num2 = value;
-  else                query.num1 = value;
+  // zero logic
+  if (number === '0') {
+    if (input === '0') {
+      specialCase = true;
+    } else {
+      number = input;
+      specialCase = true;
+    }
+  }
+
+  if (!specialCase) number += input;
+
+  if (query.operator) query.num2 = number;
+  else                query.num1 = number;
 }
 function setOperator(opr) {
   query.operator = opr;
