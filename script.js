@@ -9,6 +9,7 @@ const elemDisplayTop    = document.querySelector('.display__top')
 const elemDisplayResult = document.querySelector('.display__result')
 const elemBtnNumbers    = document.querySelectorAll('.btn__num');
 const elemBtnOperators  = document.querySelectorAll('.btn__opr');
+const elemBtnClearAll   = document.querySelector('#btnClearAll');
 const elemBtnClear      = document.querySelector('#btnClear');
 
 // variables
@@ -114,7 +115,7 @@ elemBtnOperators.forEach(element => {
     elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
   };
 });
-elemBtnClear.onclick = () => {
+elemBtnClearAll.onclick = () => {
   // empty query
   for (const key in query) {
     query[key] = '';
@@ -122,4 +123,10 @@ elemBtnClear.onclick = () => {
   // empty display
   elemDisplayTop.textContent = ''
   elemDisplayResult.textContent = ''
+};
+elemBtnClear.onclick = () => {
+  if (query.operator) query.num2 = '';
+  else                query.num1 = '';
+
+  elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
 };
