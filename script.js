@@ -11,6 +11,7 @@ const elemBtnNumbers    = document.querySelectorAll('.btn__num');
 const elemBtnOperators  = document.querySelectorAll('.btn__opr');
 const elemBtnClearAll   = document.querySelector('#btnClearAll');
 const elemBtnClear      = document.querySelector('#btnClear');
+const elemBtnNegative   = document.querySelector('#btnNegative');
 
 // variables
 const query = {
@@ -31,7 +32,7 @@ function setNumber(input) {
     if (number === '') {
       number = '0.';
       specialCase = true;
-    } 
+    }
     if (number.includes('.')) {
       specialCase = true;
     }
@@ -41,7 +42,7 @@ function setNumber(input) {
   if (number === '0') {
     if (input === '0') {
       specialCase = true;
-    } else {
+    } else if (input !== '.') {
       number = input;
       specialCase = true;
     }
@@ -70,6 +71,9 @@ function setOperator(opr) {
       break;
   }
 }
+function updateDisplayTop() {
+  elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
+}
 
 // onclick events
 elemBtnNumbers.forEach(element => {
@@ -77,7 +81,7 @@ elemBtnNumbers.forEach(element => {
   
   element.onclick = () => {
     setNumber(number);
-    elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
+    updateDisplayTop();
   };
 });
 elemBtnOperators.forEach(element => {
@@ -112,7 +116,7 @@ elemBtnOperators.forEach(element => {
 
     // set operator and display query
     setOperator(element.dataset.opr);
-    elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
+    updateDisplayTop();
   };
 });
 elemBtnClearAll.onclick = () => {
@@ -128,5 +132,17 @@ elemBtnClear.onclick = () => {
   if (query.operator) query.num2 = '';
   else                query.num1 = '';
 
-  elemDisplayTop.textContent = `${query.num1} ${query.symbol} ${query.num2}`;
+  updateDisplayTop();
+};
+elemBtnNegative.onclick = () => {
+  let number      = query.operator ? query.num2 : query.num1;
+
+  if (number != 0) {
+    if (number.includes('-')) number = number.slice(1);
+    else                      number = '-' + number;
+  }
+
+  if (query.operator) query.num2 = number;
+  else                query.num1 = number;
+  updateDisplayTop();
 };
