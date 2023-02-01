@@ -15,6 +15,7 @@ body {
 
   padding: 40px;
 
+  border: 6px solid #141515;
   border-radius: 10px;
   
   margin: auto;
@@ -26,7 +27,8 @@ body {
   font-family: 'Martian Mono', monospace;
   text-align: end;
   
-  background-color: blanchedalmond;
+  background-color: #FFEFD6;
+  color: #7A4B00;
 
   padding: 16px;
 
