@@ -142,8 +142,9 @@ elemBtnClearAll.onclick = () => {
 elemBtnClear.onclick = () => {
   if (query.operator) query.num2 = '';
   else                query.num1 = '';
-
+  
   updateDisplayTop();
+  query.result = '';
   elemDisplayResult.textContent = '';
 };
 elemBtnNegative.onclick = () => {
