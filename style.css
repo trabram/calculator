@@ -79,6 +79,10 @@ body {
   color: #E8EEF2;
 }
 
+.numpad__btn[id]:hover {
+  background-color: #1E1F1F;
+}
+
 .numpad__btn[data-opr="result"] {
   flex-grow: 1;
 }
@@ -91,8 +95,16 @@ body {
   background-color: #E8EEF2;
 }
 
+.btn__num:hover {
+  background-color: #CBD8E2;
+}
+
 .btn__opr {
   background-color: #FFBA49;
+}
+
+.btn__opr:hover {
+  background-color: #FFA10A;
 }
 
 #btnNegative {
