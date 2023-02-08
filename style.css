@@ -83,6 +83,10 @@ body {
   background-color: #1E1F1F;
 }
 
+.numpad__btn[id]:disabled {
+  color: #505353;
+}
+
 .numpad__btn[data-opr="result"] {
   flex-grow: 1;
 }

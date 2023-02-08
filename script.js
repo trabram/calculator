@@ -5,8 +5,9 @@ function multiply(a,b) { return a * b }
 function divide(a,b)   { return a / b }
 
 // elements
-const elemDisplayTop    = document.querySelector('.display__top')
-const elemDisplayResult = document.querySelector('.display__result')
+const elemDisplayTop    = document.querySelector('.display__top');
+const elemDisplayResult = document.querySelector('.display__result');
+const elemButtons       = document.querySelectorAll('.numpad__btn');
 const elemBtnNumbers    = document.querySelectorAll('.btn__num');
 const elemBtnOperators  = document.querySelectorAll('.btn__opr');
 const elemBtnClearAll   = document.querySelector('#btnClearAll');
@@ -84,6 +85,8 @@ function reset() {
   // empty display
   elemDisplayTop.textContent = ''
   elemDisplayResult.textContent = ''
+  // reset buttons
+  elemButtons.forEach(element => element.disabled = false);
 }
 function clear() {
   if (query.operator) query.num2 = '';
@@ -112,6 +115,18 @@ function toggleNegative() {
   else                query.num1 = number;
   updateDisplayTop();
 }
+function checkDivideZero() {
+  if (query.operator === 'divide' && query.num2 == '0') {
+    elemButtons.forEach(element => {
+      if (element.id == 'btnClearAll') return;
+      element.disabled = true;
+    });
+    elemDisplayTop.textContent    = 'Internal Error...';
+    elemDisplayResult.textContent = 'KABOOM!';
+    return true;
+  }
+  return false;
+}
 
 function inputNumber(num) {
   // reset when finish (result calculated)
@@ -131,6 +146,7 @@ function inputOperator(opr) {
   // show result function
   if (opr === 'result') {
     if (query.num1 !== '' && query.num2 !== '') {
+      if (checkDivideZero()) return;
       query.result = window[String(query.operator)](+query.num1, +query.num2);
       elemDisplayResult.textContent = query.result;
     }
@@ -139,6 +155,7 @@ function inputOperator(opr) {
 
   // set result if input on num2 already exist (chaining)
   if (query.num2 !== '') {
+    if (checkDivideZero()) return;
     query.result = window[String(query.operator)](+query.num1, +query.num2);
   }
 
