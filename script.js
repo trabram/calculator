@@ -148,11 +148,18 @@ elemBtnClear.onclick = () => {
   elemDisplayResult.textContent = '';
 };
 elemBtnNegative.onclick = () => {
-  let number      = query.operator ? query.num2 : query.num1;
+  let number = query.operator ? query.num2 : query.num1;
 
+  // disable when number is 0
   if (number != 0) {
     if (number.includes('-')) number = number.slice(1);
     else                      number = '-' + number;
+  }
+
+  // reset result when second input change
+  if (query.result !== '') {
+    query.result = '';
+    elemDisplayResult.textContent = '';
   }
 
   if (query.operator) query.num2 = number;
