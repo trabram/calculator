@@ -164,9 +164,9 @@ elemBtnOperators.forEach(element => {
   const operation = element.dataset.opr;
   element.onclick = () => inputOperator(operation);
 });
-elemBtnClearAll.onclick = reset();
-elemBtnClear.onclick    = clear();
-elemBtnNegative.onclick = toggleNegative();
+elemBtnClearAll.onclick = () => reset();
+elemBtnClear.onclick    = () => clear();
+elemBtnNegative.onclick = () => toggleNegative();
 
 // keyboard input
 document.onkeydown = e => {
