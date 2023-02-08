@@ -21,6 +21,8 @@ const query = {
   symbol   : '',
   result   : ''
 };
+const _numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+const _operators = ['+', '-', '*', '/', '=', 'Enter']
 
 // functions
 function setNumber(input) {
@@ -83,71 +85,15 @@ function reset() {
   elemDisplayTop.textContent = ''
   elemDisplayResult.textContent = ''
 }
-
-// onclick events
-elemBtnNumbers.forEach(element => {
-  const number = element.dataset.num;
-  
-  element.onclick = () => {
-    // reset when finish (result calculated)
-    if (query.num1     !== '' &&
-        query.num2     !== '' &&
-        query.operator !== '' &&
-        query.result   !== ''
-    ) reset();
-    
-    setNumber(number);
-    updateDisplayTop();
-  };
-});
-elemBtnOperators.forEach(element => {
-  const operation = element.dataset.opr;
-  
-  element.onclick = () => {
-
-    // disable if no number given
-    if (query.num1 === '') return;
-
-    // show result function
-    if ( operation  === 'result' && 
-         query.num1 !== ''       && 
-         query.num2 !== ''
-    ) {
-      query.result = window[String(query.operator)](+query.num1, +query.num2);
-      elemDisplayResult.textContent = query.result;
-      return;
-    }
-
-    // set result if input on num2 already exist (chaining)
-    if (query.num2 !== '') {
-      query.result = window[String(query.operator)](+query.num1, +query.num2);
-    }
-
-    // result chaining
-    if (query.result !== '') {
-      query.num1   = query.result;
-      query.num2   = '';
-      query.result = '';
-      elemDisplayResult.textContent = '';
-    }
-
-    // set operator and display query
-    setOperator(element.dataset.opr);
-    updateDisplayTop();
-  };
-});
-elemBtnClearAll.onclick = () => {
-  reset()
-};
-elemBtnClear.onclick = () => {
+function clear() {
   if (query.operator) query.num2 = '';
   else                query.num1 = '';
   updateDisplayTop();
 
   query.result = '';
   elemDisplayResult.textContent = '';
-};
-elemBtnNegative.onclick = () => {
+}
+function toggleNegative() {
   let number = query.operator ? query.num2 : query.num1;
 
   // disable when number is 0
@@ -165,4 +111,110 @@ elemBtnNegative.onclick = () => {
   if (query.operator) query.num2 = number;
   else                query.num1 = number;
   updateDisplayTop();
-};
+}
+
+function inputNumber(num) {
+  // reset when finish (result calculated)
+  if (query.num1     !== '' &&
+      query.num2     !== '' &&
+      query.operator !== '' &&
+      query.result   !== ''
+  ) reset();
+
+  setNumber(num);
+  updateDisplayTop();
+}
+function inputOperator(opr) {
+  // disable if no number given
+  if (query.num1 === '') return;
+
+  // show result function
+  if (opr === 'result') {
+    if (query.num1 !== '' && query.num2 !== '') {
+      query.result = window[String(query.operator)](+query.num1, +query.num2);
+      elemDisplayResult.textContent = query.result;
+    }
+    return;
+  }
+
+  // set result if input on num2 already exist (chaining)
+  if (query.num2 !== '') {
+    query.result = window[String(query.operator)](+query.num1, +query.num2);
+  }
+
+  // result chaining
+  if (query.result !== '') {
+    query.num1   = query.result;
+    query.num2   = '';
+    query.result = '';
+    elemDisplayResult.textContent = '';
+  }
+
+  // set operator and display query
+  setOperator(opr);
+  updateDisplayTop();
+}
+
+// onclick events
+elemBtnNumbers.forEach(element => {
+  const number = element.dataset.num;
+  element.onclick = () => inputNumber(number);
+});
+elemBtnOperators.forEach(element => {
+  const operation = element.dataset.opr;
+  element.onclick = () => inputOperator(operation);
+});
+elemBtnClearAll.onclick = reset();
+elemBtnClear.onclick    = clear();
+elemBtnNegative.onclick = toggleNegative();
+
+// keyboard input
+document.onkeydown = e => {
+  const key = e.key;
+
+  // clear functions
+  switch (key) {
+    case 'Escape':
+      reset();
+      return;
+    case 'Backspace':
+      if (query.num2 === '') reset();
+      else                   clear();
+      return;
+    case 'Shift':
+      toggleNegative();
+      return;
+  } 
+
+  // number inputs
+  if ( _numbers.includes(key) ) {
+    inputNumber(key);
+    return;
+  }
+
+  // operator inputs
+  if ( _operators.includes(key) ) {
+    let operator;
+    switch (key) {
+      case '+':
+        operator = 'add';
+        break;
+      case '-':
+        operator = 'subtract';
+        break;
+      case '*':
+        operator = 'multiply';
+        break;
+      case '/':
+        operator = 'divide';
+        break;
+      case '=':
+      case 'Enter':
+        operator = 'result';
+        break;
+    }
+
+    inputOperator(operator);
+    return;
+  }
+}
