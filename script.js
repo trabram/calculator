@@ -113,14 +113,14 @@ elemBtnOperators.forEach(element => {
          query.num1 !== ''       && 
          query.num2 !== ''
     ) {
-      query.result = window[query.operator](+query.num1, +query.num2);
+      query.result = window[String(query.operator)](+query.num1, +query.num2);
       elemDisplayResult.textContent = query.result;
       return;
     }
 
     // set result if input on num2 already exist (chaining)
     if (query.num2 !== '') {
-      query.result = window[query.operator](+query.num1, +query.num2);
+      query.result = window[String(query.operator)](+query.num1, +query.num2);
     }
 
     // result chaining
@@ -142,8 +142,8 @@ elemBtnClearAll.onclick = () => {
 elemBtnClear.onclick = () => {
   if (query.operator) query.num2 = '';
   else                query.num1 = '';
-  
   updateDisplayTop();
+
   query.result = '';
   elemDisplayResult.textContent = '';
 };
